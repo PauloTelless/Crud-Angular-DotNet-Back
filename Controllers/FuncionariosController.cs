@@ -61,15 +61,46 @@ public class FuncionariosController : ControllerBase
         {
             _context.Funcionarios.Add(funcionario);
 
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return Ok(funcionario);
         }
-
         catch (Exception ex)
         {
 
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpPut]
+    public async Task<ActionResult<Funcionario>> PutFuncionarioAsync(int id, Funcionario funcionario)
+    {
+        try
+        {
+            var funcionarioId = await _context.Funcionarios.FirstOrDefaultAsync(x => x.FuncionarioId == id);
+            if (funcionarioId is null)
+            {
+                return NotFound();
+            }
+
+            funcionarioId.NomeFuncionario = funcionario.NomeFuncionario;
+            funcionarioId.Cargo = funcionario.Cargo;
+            funcionarioId.IdadeFuncionario = funcionario.IdadeFuncionario;
+            funcionarioId.IsActive = funcionario.IsActive;
+            funcionarioId.IsInative = funcionario.IsInative;
+
+            _context.Update(funcionarioId);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(funcionarioId);
+            
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(ex.Message);
+        }
+
     }
 }
