@@ -19,9 +19,18 @@ public class FuncionariosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionariosAsync()
     {
-        var funcionarios = await _context.Funcionarios.AsNoTracking().ToListAsync();
+        try
+        {
+            var funcionarios = await _context.Funcionarios.AsNoTracking().ToListAsync();
 
-        return funcionarios;
+            return funcionarios;
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(ex.Message);
+        }
+
     }
 
     [HttpGet("{id:int}")]
