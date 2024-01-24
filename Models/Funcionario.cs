@@ -23,6 +23,4 @@ public class Funcionario
     [Required]
     public bool IsActive { get; set; }
 
-    [Required]
-    public bool IsInative { get; set; }
 }
