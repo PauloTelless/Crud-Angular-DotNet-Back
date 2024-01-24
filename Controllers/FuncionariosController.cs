@@ -52,8 +52,24 @@ public class FuncionariosController : ControllerBase
 
             return BadRequest(ex.Message);
         }
-        
+    }
 
-        
+    [HttpPost]
+    public async Task<ActionResult<Funcionario>> PostFuncionarioAsync(Funcionario funcionario)
+    {
+        try
+        {
+            _context.Funcionarios.Add(funcionario);
+
+           await _context.SaveChangesAsync();
+
+            return Ok(funcionario);
+        }
+
+        catch (Exception ex)
+        {
+
+            return BadRequest(ex.Message);
+        }
     }
 }
