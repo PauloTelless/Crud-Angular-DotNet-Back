@@ -72,7 +72,7 @@ public class FuncionariosController : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPut("{id:int}")]
     public async Task<ActionResult<Funcionario>> PutFuncionarioAsync(int id, Funcionario funcionario)
     {
         try
@@ -102,5 +102,31 @@ public class FuncionariosController : ControllerBase
             return BadRequest(ex.Message);
         }
 
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult<Funcionario>> DeleteAsync(int id)
+    {
+        try
+        {
+            var funcionario = await _context.Funcionarios.FirstOrDefaultAsync(x => x.FuncionarioId == id);
+
+            if (funcionario is null)
+            {
+                return NotFound();
+            }
+
+            _context.Funcionarios.Remove(funcionario);
+
+            await _context.SaveChangesAsync();
+
+            return funcionario;
+
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(ex.Message);
+        }
     }
 }
