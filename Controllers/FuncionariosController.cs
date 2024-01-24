@@ -87,7 +87,6 @@ public class FuncionariosController : ControllerBase
             funcionarioId.Cargo = funcionario.Cargo;
             funcionarioId.IdadeFuncionario = funcionario.IdadeFuncionario;
             funcionarioId.IsActive = funcionario.IsActive;
-            funcionarioId.IsInative = funcionario.IsInative;
 
             _context.Update(funcionarioId);
 
